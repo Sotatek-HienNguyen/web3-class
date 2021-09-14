@@ -21,7 +21,7 @@ const init = async () => {
   let options = {
     filter: {},
     fromBlock: blockNumber,
-    toBlock: latestBlock,
+    toBlock: 'latest',
   };
   console.log(`${latestBlock} ${blockNumber}`);
 

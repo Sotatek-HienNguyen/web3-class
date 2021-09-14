@@ -21,22 +21,21 @@ const init = () => __awaiter(void 0, void 0, void 0, function* () {
     const balance = yield contract.methods.balanceOf(addressCheckBalance).call();
     console.log(`=====BalanceOf ${addressCheckBalance}: ${balance} ${symbol}`);
     const latestBlock = yield web3.eth.getBlockNumber();
-    const blockNumber = latestBlock - 2;
+    const blockNumber = latestBlock - 100;
     let options = {
         filter: {},
         fromBlock: blockNumber,
-        toBlock: latestBlock,
+        toBlock: 'latest',
     };
     console.log(`${latestBlock} ${blockNumber}`);
-    contract
-        .getPastEvents("Transfer", options)
+    contract.getPastEvents("Transfer", options)
         .then((result) => console.log("======Query event transfer on the last 100 block", result))
         .catch((err) => console.log("Err", err.message));
     contract.events.Transfer()
-        .on('data', (event) => {
-        console.log(`=====Listen event transfer ${event}`);
+        .on("data", (event) => {
+        console.log("=====Listen event transfer", event);
     })
-        .on('error', console.error);
+        .on("error", console.error);
 });
 init();
 //# sourceMappingURL=index.js.map
