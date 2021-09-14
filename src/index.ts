@@ -16,7 +16,7 @@ const init = async () => {
   console.log(`=====BalanceOf ${addressCheckBalance}: ${balance} ${symbol}`);
 
   const latestBlock = await web3.eth.getBlockNumber();
-  const blockNumber = latestBlock - 2;
+  const blockNumber = latestBlock - 100;
 
   let options = {
     filter: {},
