@@ -61,7 +61,8 @@ function App() {
       })
       .on("receipt", (receipt) => {
         SetStatus({
-          withdraw: 1
+          withdraw: 1,
+          deposit: 0
         });
       });
   };
@@ -76,6 +77,7 @@ function App() {
       })
       .on("receipt", function (receipt) {
         SetStatus({
+          withdraw: 0,
           deposit: 1
         });
       });
