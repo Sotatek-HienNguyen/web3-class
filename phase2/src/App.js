@@ -69,10 +69,10 @@ function App() {
 
   const deposit = () => {
     const amount = web3.utils.toWei(depositAmount, 'ether');
-    myContract.methods
+    contractInstance.methods
       .deposit()
       .send({
-        from: address,
+        from: accountAddress,
         value: amount
       })
       .on("receipt", function (receipt) {
