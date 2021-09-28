@@ -36,3 +36,25 @@
     transform: rotate(360deg);
   }
 }
+
+* {
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+  border: none;
+}
+.App {
+  text-align: center;
+}
+
+.btn-form{
+  padding: 10px;
+  background: blue;
+  color: white;
+  font-weight: 600;
+  margin: 5px;
+}
+.btn-red{
+  background: red;
+  color: black;
+}

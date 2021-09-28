@@ -209,18 +209,18 @@ function App() {
   const ConnectWallet = ({ handleConnected }) => {
     return (
       <div className="connect-wrapper">
-        <div
-          className="btn-connect"
+        <button
+          className="btn-form"
           onClick={() => handleConnected("metamask")}
         >
           <span className="span">Metamask</span>
-        </div>
-        <div
-          className="btn-connect mt20"
+        </button>
+        <button
+          className="btn-form"
           onClick={() => handleConnected("walletconnect")}
         >
           <span className="span">Wallet connect</span>
-        </div>
+        </button>
       </div>
     );
   };
