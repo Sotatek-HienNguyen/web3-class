@@ -70,8 +70,8 @@ function App() {
       library
         .getBalance(account)
         .then(balance => {
-          console.log("=================", balance);
           if (!stale) {
+            console.log(`Get weth balance: `, balance);
             setWethBalance(balance);
           }
         })
@@ -168,16 +168,16 @@ function App() {
       WETH_ADDRESS
     );
     await wethSmartContract.methods
-      .approve(MASTERCHEF_ADDRESS, 5000 * 10 ** 18)
+      .approve(MASTERCHEF_ADDRESS, (5000 * 10)^ 18)
       .call();
     setIsApproval(1);
   };
 
-  const handleOpenModal = (type) => {
+  const handleShowModal = (type) => {
     setIsOpenModal(1);
     let display = setData({
       type: TYPE.STAKE,
-      display: wethBalance ?? 0,
+      display: parseFloat(formatEther(wethBalance)).toPrecision(4) ?? 0,
       value: 0,
     });
   };
@@ -227,25 +227,24 @@ function App() {
 
   const AccountInfo = () => {
     return (
-      <div className="wrap-account-info">
+      <div className="account-information">
         <div className="wallet-info">
-          <p>
+          <p className="split">
             <span>Wallet address {account ?? "None..."}</span>
-            <span>balance {wethBalance} WETH</span>
+            <span>balance {wethBalance ? `${parseFloat(formatEther(wethBalance)).toPrecision(4)}` : `None`} WETH</span>
           </p>
         </div>
         <div className="stake-token">
           <p>Stake token</p>
-          <span>Token earned {earn ?? 0} DD2</span>
-          <button
-            onClick={handleHarvest}
-            style={{
-              height: "35px",
-              padding: "10px",
-            }}
-          >
-            Harvest
-          </button>
+          <div className="split">
+            <span>Token earned {earn ?? 0} DD2</span>
+            <button
+              onClick={handleHarvest}
+              className="btn-form btn-green"
+            >
+              Harvest
+            </button>
+          </div>
         </div>
         <div className="stake-action">
           {!isApproval ? (
@@ -254,10 +253,10 @@ function App() {
             </button>
           ) : (
             <div>
-              <button className="btn-form" onClick={() => handleOpenModal(0)}>
+              <button className="btn-form" onClick={() => handleShowModal(0)}>
                 Stake
               </button>
-              <button className="btn-form" onClick={() => handleOpenModal(1)}>
+              <button className="btn-form" onClick={() => handleShowModal(1)}>
                 Withdraw
               </button>
             </div>
@@ -265,15 +264,15 @@ function App() {
         </div>
 
         <div className="pool">
-          <p>
+          <p className="split">
             <span>Share of pool</span>
             <span>{sharePool} %</span>
           </p>
-          <p>
+          <p className="split">
             <span>Your stake</span>
             <span>{stake} %</span>
           </p>
-          <p>
+          <p className="split">
             <span>Your stake</span>
             <span>{stakeTotal} %</span>
           </p>
@@ -286,7 +285,7 @@ function App() {
     <div className="App">
       <div className="header">
         {active ? (
-          <AccountInfo></AccountInfo>
+          AccountInfo()
         ) : (
           <ConnectWallet handleConnected={handleConnect}></ConnectWallet>
         )}
