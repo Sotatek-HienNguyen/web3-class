@@ -69,7 +69,13 @@
   font-size: calc(10px + 1vmin);
   color: white;
 }
-
+.modal-container{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 .split{
   display: flex;
   padding: 0px 20px;
@@ -77,4 +83,20 @@
 
 .split span, .split p, .split div {
   padding: 10px;
+}
+.header-form{
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  margin-bottom: 10px;
+}
+.input-form{
+  padding: 10px;
+  font-size: calc(10px + 0.5vmin);
+}
+.label-form{
+  font-size: calc(10px + 0.5vmin);
+  padding: 10px;
+  background: aqua;
+  color: black;
 }

@@ -290,6 +290,32 @@ function App() {
           <ConnectWallet handleConnected={handleConnect}></ConnectWallet>
         )}
       </div>
+
+      <Modal
+        isOpen={isOpenModal}
+        onRequestClose={() => { setIsOpenModal(0) }}
+      >
+
+        <div className="modal-container">
+          <p class="header-form">{data.type ? 'WITHDRAW' : 'STAKE'}</p>
+
+          <div className="modal-input">
+            <input placeholder="input here" className="input-form" value={data.value} onChange={(e) => { setData({ ...data, value: e.target.value }) }}></input>
+            <span className="label-form" onClick={() => {
+              setData({ ...data, value: data.display })
+            }}>MAX</span>
+          </div>
+
+          {
+            data.type === 0
+              ? <p style={{ padding: "5px"}}>Your balance {data.display} WETH</p>
+              : <p style={{ padding: "5px"}}>Total staked {data.display} DD2</p>
+          }
+          <button className="btn-form" onClick={handleSubmitModal}>Submit</button>
+        </div>
+
+      </Modal>
+
     </div>
   );
 }
