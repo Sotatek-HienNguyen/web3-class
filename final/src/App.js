@@ -176,7 +176,7 @@ function App() {
   const handleShowModal = (type) => {
     setIsOpenModal(1);
     let display = setData({
-      type: TYPE.STAKE,
+      type: type,
       display: parseFloat(formatEther(wethBalance)).toPrecision(4) ?? 0,
       value: 0,
     });
