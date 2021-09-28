@@ -133,33 +133,26 @@ function App() {
   };
 
   const handleSubmitModal = async () => {
-    setIsOpenModal(0);
-
+    setIsOpenModal(false);
     if (isNaN(data.value)) {
       return;
     }
+    const web3 = new Web3(window.web3.currentProvider);
+    const mtcInstace = new web3.eth.Contract(MASTERCHEF_ABI, MASTERCHEF_ADDRESS);
+    const amout = Web3.utils.toWei(data.value, 'ether');
 
-    const web3Instance = new Web3(window.web3.currentProvider);
-    const mtcSmartContract = new web3Instance.eth.Contract(
-      MASTERCHEF_ABI,
-      MASTERCHEF_ADDRESS
-    );
-    const amount = convertBalanceFromWei(data.value);
-
-    if (data.type === TYPE.STAKE) {
-      await mtcSmartContract.methods.deposit(amount).send({
-        from: account,
-      });
+    try {
+      if (data.type === 0) {
+        await mtcInstace.methods.deposit(amout).send({ from: account });
+        getAccountInfo();
+        return;
+      }
+      await mtcInstace.methods.withdraw(amout).send({ from: account });
       getAccountInfo();
+    } catch(e) {
+      console.log(`Error `, e);
     }
-
-    if (data.type === TYPE.WITHDRAW) {
-      await mtcSmartContract.methods.withdraw(amount).send({
-        from: account,
-      });
-      getAccountInfo();
-    }
-  };
+  }
 
   const handleApproval = async () => {
     const web3Instance = new Web3(window.web3.currentProvider);
@@ -175,9 +168,10 @@ function App() {
 
   const handleShowModal = (type) => {
     setIsOpenModal(1);
+    const balance = type === 0 ? parseFloat(formatEther(wethBalance)).toPrecision(4) : 0
     let display = setData({
       type: type,
-      display: parseFloat(formatEther(wethBalance)).toPrecision(4) ?? 0,
+      display: balance,
       value: 0,
     });
   };
